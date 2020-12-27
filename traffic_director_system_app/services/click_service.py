@@ -24,3 +24,7 @@ class ClickService:
             click_count.append(item['count'])
         click_count.append(0)
         return click_hours, click_count
+
+    @staticmethod
+    def get_user_clicks(ip_address):
+        return ClickDao().get_user_clicks(ip_address)

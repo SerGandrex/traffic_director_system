@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.urls import path
 
-from .views import RedirectLinkView, LandingPageView
+from .views import RedirectLinkView, LandingPageView, UserStatistics
 
 urlpatterns = [
     path("", RedirectLinkView.home, name="home"),
@@ -33,4 +33,5 @@ urlpatterns = [
     path("landing-page/traffic-redirect/<int:redirect_link_id>", LandingPageView.traffic_redirect,
          name="traffic_redirect"),
     path('clicks-chart/<int:redirect_link_id>', RedirectLinkView.clicks_chart, name='clicks_chart'),
+    path('user-statistics/', UserStatistics.get_user_statistics, name='user_statistics'),
 ]

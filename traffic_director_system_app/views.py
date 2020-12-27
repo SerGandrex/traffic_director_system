@@ -101,3 +101,17 @@ class LandingPageView:
         landing_page_url = LandingPageService.traffic_redirect(redirect_link_id, country['country_name'])
         ClickService.create_click(RedirectLinkService.get_redirect_link(redirect_link_id), ip_address)
         return redirect(landing_page_url)
+
+
+class UserStatistics:
+
+    @staticmethod
+    def get_user_statistics(request):
+        ip_address = RequestIp.get_client_ip(request)
+        if ip_address == '127.0.0.1':
+            ip_address = urllib.request.urlopen('https://api.ipify.org').read().decode()
+
+        user_clicks = ClickService.get_user_clicks(ip_address)
+
+        return render(request, 'user-statistics.html', {'user_clicks': user_clicks})
+

@@ -28,3 +28,6 @@ class ClickDao(BaseDAO):
             .annotate(count=Count('id'))
 
         return clicks
+
+    def get_user_clicks(self, ip_address):
+        return self.filter_by_kwargs(ip_address=ip_address)

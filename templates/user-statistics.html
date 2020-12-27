@@ -1,0 +1,21 @@
+{% include 'index.html' %}
+{% block content %}
+    <div class="container">
+        <div class="center">
+            <table class="table table-bordered" style="width:100%">
+                <tr>
+                    <th>URLs</th>
+                    <th>Requesting time</th>
+                    <th>IP address</th>
+                </tr>
+                {% for user_click in user_clicks %}
+                    <tr>
+                        <td>{{ user_click }}</td>
+                        <td>{{ user_click }}</td>
+                        <td>{{ user_click }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}
