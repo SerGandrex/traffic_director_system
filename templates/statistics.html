@@ -1,0 +1,65 @@
+{% include 'index.html' %}
+{% block content %}
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+
+    $(function () {
+
+      var $clicksChart = $("#clicks-chart");
+      $.ajax({
+          url: $clicksChart.data("url"),
+          success: function (data) {
+              var ctx = $clicksChart[0].getContext("2d");
+              console.log(data)
+              new Chart(ctx, {
+                type: 'bar',
+                data: {
+                  labels: data.click_hours,
+                  datasets: [{
+                    label: 'Hours',
+                    backgroundColor: 'blue',
+                    data: data.count_click
+                  }]
+                },
+                options: {
+                  responsive: true,
+                  legend: {
+                    position: 'top',
+                  },
+                  title: {
+                    display: true,
+                    text: 'Click Bar Chart'
+                  }
+                }
+              });
+
+            }
+      });
+
+    });
+  </script>
+    <div class="container">
+        <div class="center">
+            <div id="container" style="width: 75%;">
+                <canvas id="clicks-chart" data-url="{% url 'clicks_chart' redirect_link_id %}"></canvas>
+            </div>
+            <table class="table table-bordered" style="width:100%">
+                <tr>
+                    <th>redirect_link_id</th>
+                    <th>redirect link url</th>
+                    <th>total clicks</th>
+                    <th>unique clicks</th>
+                </tr>
+                {% for click in clicks %}
+                    <tr>
+                        <td>{{ click.redirect_link_id }}</td>
+                        <td>http://mind.now/{{ click.redirect_link__short_url_identifier }}</td>
+                        <td>{{ click.clicks }}</td>
+                        <td>{{ click.unique_clicks }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

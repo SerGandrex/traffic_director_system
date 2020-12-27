@@ -1,0 +1,35 @@
+{% include 'index.html' %}
+{% block content %}
+    <div class="container">
+        <div class="center">
+            <table class="table table-bordered" style="width:100%">
+                <tr>
+                    <th>URL</th>
+                    <th>Country</th>
+                    <th>Weight</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                    <th></th>
+                </tr>
+                {% for landing_page in landing_pages %}
+                    <tr>
+                        <td>{{ landing_page.url }}</td>
+                        <td>{{ landing_page.country }}</td>
+                        <td>{{ landing_page.weight }}</td>
+                        <td>
+                            <form action="{% url 'update_landing_page' landing_page.id landing_page.redirect_link_id%}" method="GET">
+                                <input class="btn btn-success" type="submit" value="Update">
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{% url 'delete_landing_page' landing_page.id landing_page.redirect_link_id%}" method="POST">
+                                {% csrf_token %}
+                                <input class="btn btn-danger" type="submit" value="Delete">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

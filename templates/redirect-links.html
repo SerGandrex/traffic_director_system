@@ -1,0 +1,39 @@
+{% include 'index.html' %}
+{% block content %}
+    <div class="container">
+        <div class="center">
+            <table class="table table-bordered" style="width:100%">
+            <tr>
+                <th>id</th>
+                <th>redirect link url</th>
+                <th>get landing pages</th>
+                <th>add landing pages</th>
+                <th>statistics</th>
+            </tr>
+            {% for redirect_link in redirect_links %}
+                <tr>
+                    <td>{{ redirect_link.id }}</td>
+                    <td>
+                        <a href="{% url 'traffic_redirect' redirect_link.id %}" target="_blank">
+                            http://mind.now/{{ redirect_link.short_url_identifier }}
+                        </a>
+                    </td>
+                    <td><a href="{% url 'get_landing_pages' redirect_link.id %}">
+                            <button class="btn btn-primary">get landing pages</button>
+                        </a>
+                    </td>
+                    <td><a href="{% url 'create_landing_page' redirect_link.id %}">
+                            <button class="btn btn-success">add parameters/landing pages</button>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'get_redirect_link_clicks' redirect_link.id %}">
+                            <button class="btn btn-info"> statistics </button>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}
