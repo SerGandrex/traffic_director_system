@@ -28,7 +28,7 @@
   
 ## Setup (To run dockerized solution)
   - change database parameters in traffic_director_system/settings.py DATABASE section
-  - set 'HOST': 'db',
+  - set 'HOST': 'db', in traffic_director_system/settings.py DATABASE section
   - docker build -t traffic-web:0.1 .
   - docker-compose up -d
   - open http://0.0.0.0:8020/

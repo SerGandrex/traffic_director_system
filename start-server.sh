@@ -7,6 +7,7 @@ fi
 
 if [ "x$DJANGO_MANAGEPY_MIGRATE" = 'xon' ]; then
     echo "PostgreSQL started"
+    python manage.py makemigrations --noinput
     python manage.py migrate --noinput
 fi
 
