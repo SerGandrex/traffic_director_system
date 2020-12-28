@@ -3,7 +3,7 @@ from django_countries.fields import CountryField
 
 
 class RedirectLink(models.Model):
-    short_url_identifier = models.CharField(max_length=5, null=False)
+    short_url_identifier = models.CharField(max_length=5, null=False, unique=True)
 
 
 class LandingPage(models.Model):

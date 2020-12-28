@@ -19,5 +19,9 @@ class CountryLimitation:
 
     @staticmethod
     def get_country_by_ip(ip):
-        g = GeoIP2()
-        return g.country(ip)
+        try:
+            g = GeoIP2()
+            return g.country(ip)
+        except Exception:
+            return False
+

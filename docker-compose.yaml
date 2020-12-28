@@ -1,0 +1,31 @@
+version: "2"
+
+services:
+  db:
+    environment:
+      POSTGRES_DB: traffic_director_system_db
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    networks:
+      - app-network
+    restart: always
+    image: postgres:12
+    expose:
+      - "5432"
+  app:
+    environment:
+      DJANGO_MANAGEPY_MIGRATE: "on"
+      DJANGO_SUPERUSER_USERNAME: admin
+      DJANGO_SUPERUSER_PASSWORD: sekret1
+      DJANGO_SUPERUSER_EMAIL: admin@example.com
+    networks:
+      - app-network
+    image: traffic-web:0.1
+    depends_on:
+      - db
+    ports:
+      - "8020:8020"
+
+networks:
+  app-network:
+    driver: bridge

@@ -16,13 +16,19 @@
 
 - Database migrations:
   
-  - create database in psql:
-  - CREATE DATABASE traffic_director_system_db
+  - change database parameters in traffic_director_system/settings.py DATABASE section
+  - set 'HOST': 'localhost',
+  - create a database in psql:
+  - CREATE DATABASE traffic_director_system_db;
   - python manage.py makemigrations
   - python manage.py migrate
 
 - Run application:
   - python manage.py runserver
-
-    
-    
+  
+## Setup (To run dockerized solution)
+  - change database parameters in traffic_director_system/settings.py DATABASE section
+  - set 'HOST': 'db',
+  - docker build -t traffic-web:0.1 .
+  - docker-compose up -d
+  - open http://0.0.0.0:8020/

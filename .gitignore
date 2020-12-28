@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 .idea/
 venv
-traffic_director_system_app/migrations
+
