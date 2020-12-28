@@ -10,9 +10,9 @@
                 </tr>
                 {% for user_click in user_clicks %}
                     <tr>
-                        <td>{{ user_click }}</td>
-                        <td>{{ user_click }}</td>
-                        <td>{{ user_click }}</td>
+                        <td>http://mind.now/{{ user_click.redirect_link__short_url_identifier }}</td>
+                        <td>{{ user_click.created_at }}</td>
+                        <td>{{ user_click.ip_address }}</td>
                     </tr>
                 {% endfor %}
             </table>

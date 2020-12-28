@@ -20,6 +20,8 @@ class Click(models.Model):
     ip_address = models.GenericIPAddressField(null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     redirect_link = models.ForeignKey(RedirectLink, on_delete=models.CASCADE, null=False)
+    country = CountryField(blank=True)
+
 
 
 

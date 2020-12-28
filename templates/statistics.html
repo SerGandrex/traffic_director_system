@@ -50,15 +50,17 @@
                     <th>redirect link url</th>
                     <th>total clicks</th>
                     <th>unique clicks</th>
+                    <th>number of countries</th>
+                    <th>last ip address</th>
                 </tr>
-                {% for click in clicks %}
-                    <tr>
-                        <td>{{ click.redirect_link_id }}</td>
-                        <td>http://mind.now/{{ click.redirect_link__short_url_identifier }}</td>
-                        <td>{{ click.clicks }}</td>
-                        <td>{{ click.unique_clicks }}</td>
-                    </tr>
-                {% endfor %}
+                <tr>
+                    <td>{{ click.redirect_link_id }}</td>
+                    <td>http://mind.now/{{ click.redirect_link__short_url_identifier }}</td>
+                    <td>{{ click.clicks }}</td>
+                    <td>{{ click.unique_clicks }}</td>
+                    <td>{{ click.country_count }}</td>
+                    <td>{{ click.redirect_link__click__ip_address }}</td>
+                </tr>
             </table>
         </div>
     </div>

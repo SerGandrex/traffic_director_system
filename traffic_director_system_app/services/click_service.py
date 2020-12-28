@@ -6,13 +6,13 @@ from traffic_director_system_app.dao.click_dao import ClickDao
 class ClickService:
 
     @staticmethod
-    def create_click(redirect_link, ip_address):
-        return ClickDao().create_click(redirect_link=redirect_link, ip_address=ip_address)
+    def create_click(redirect_link, ip_address, country):
+        print(country)
+        return ClickDao().create_click(redirect_link=redirect_link, ip_address=ip_address, country=country)
 
     @staticmethod
     def get_redirect_link_clicks(redirect_link_id):
-        clicks = ClickDao().get_click_count(redirect_link_id)
-        return clicks
+        return ClickDao().get_click_count(redirect_link_id)
 
     @staticmethod
     def get_clicks_over_time(redirect_link_id):

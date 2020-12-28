@@ -26,7 +26,7 @@ class LandingPageService:
         if LandingPageDao.get_landing_pages_existence(redirect_link=redirect_link_id, country=country):
             landing_pages = LandingPageDao().filter_landing_page(redirect_link=redirect_link_id, country=country)
         else:
-            landing_pages = LandingPageDao().filter_landing_page(redirect_link=redirect_link_id, country='default')
+            landing_pages = LandingPageDao().filter_landing_page(redirect_link=redirect_link_id)
 
         if landing_pages:
             weights = []

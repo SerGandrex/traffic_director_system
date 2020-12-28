@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'traffic_director_system_app.apps.TrafficDirectorSystemAppConfig',
     'rest_framework',
-    'hitcount',
 ]
 
 MIDDLEWARE = [

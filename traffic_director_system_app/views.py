@@ -36,8 +36,8 @@ class RedirectLinkView:
 
     @staticmethod
     def get_redirect_link_clicks(request, redirect_link_id):
-        clicks = ClickService.get_redirect_link_clicks(redirect_link_id)
-        return render(request, 'statistics.html', {'redirect_link_id': redirect_link_id, 'clicks': clicks})
+        click = ClickService.get_redirect_link_clicks(redirect_link_id)
+        return render(request, 'statistics.html', {'redirect_link_id': redirect_link_id, 'click': click})
 
     @staticmethod
     def clicks_chart(request, redirect_link_id):
@@ -73,7 +73,7 @@ class LandingPageView:
 
     @staticmethod
     def delete_landing_page(request, redirect_link_id, landing_page_id):
-        LandingPageService.delete_landing_page(id=landing_page_id)
+        LandingPageService.delete_landing_page(landing_page_id)
         return redirect(LandingPageView.get_landing_pages, redirect_link_id)
 
     @staticmethod
@@ -98,8 +98,9 @@ class LandingPageView:
         if ip_address == '127.0.0.1':
             ip_address = urllib.request.urlopen('https://api.ipify.org').read().decode()
         country = CountryLimitation.get_country_by_ip(ip_address)
-        landing_page_url = LandingPageService.traffic_redirect(redirect_link_id, country['country_name'])
-        ClickService.create_click(RedirectLinkService.get_redirect_link(redirect_link_id), ip_address)
+        landing_page_url = LandingPageService.traffic_redirect(redirect_link_id, country['country_code'])
+        ClickService.create_click(RedirectLinkService
+                                  .get_redirect_link(redirect_link_id), ip_address, country['country_code'])
         return redirect(landing_page_url)
 
 
@@ -112,6 +113,5 @@ class UserStatistics:
             ip_address = urllib.request.urlopen('https://api.ipify.org').read().decode()
 
         user_clicks = ClickService.get_user_clicks(ip_address)
-
         return render(request, 'user-statistics.html', {'user_clicks': user_clicks})
 

@@ -1,5 +1,5 @@
-from django.db.models import Count
-from django.template.defaultfilters import first
+from django.contrib.postgres.aggregates import ArrayAgg
+from django.db.models import Count, Max
 
 from traffic_director_system_app.dao.base_dao import BaseDAO
 from traffic_director_system_app.models import Click
@@ -14,11 +14,13 @@ class ClickDao(BaseDAO):
 
     def get_click_count(self, redirect_link_id):
         clicks = self.MODEL_CLASS.objects.filter(redirect_link=redirect_link_id)\
-            .values('redirect_link_id', 'redirect_link__short_url_identifier')\
+            .values('redirect_link_id', 'redirect_link__short_url_identifier', 'redirect_link__click__ip_address')\
+            .order_by('-redirect_link__click__created_at')\
             .annotate(clicks=Count('id'))\
-            .annotate(unique_clicks=Count('ip_address', distinct=True))\
+            .annotate(country_count=Count('country', distinct=True))\
+            .annotate(unique_clicks=Count('ip_address', distinct=True))
 
-        return clicks
+        return clicks.first()
 
     def get_clicks_over_time(self, redirect_link_id):
         clicks = self.MODEL_CLASS.objects.extra({'hour': "date_trunc('hour', created_at)"})\
@@ -30,4 +32,6 @@ class ClickDao(BaseDAO):
         return clicks
 
     def get_user_clicks(self, ip_address):
-        return self.filter_by_kwargs(ip_address=ip_address)
+        return self.MODEL_CLASS.objects.filter(ip_address=ip_address)\
+            .values('redirect_link__short_url_identifier', 'ip_address', 'created_at')\
+

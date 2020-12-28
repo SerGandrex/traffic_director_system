@@ -6,7 +6,7 @@
     - cd traffic_director_system/
 
 - Create virtualenv:
-  - virtualenv --python=python3 venv
+  - virtualenv --python=python3.6 venv
   
 - activate virtualenv:
   - source venv/bin/activate
